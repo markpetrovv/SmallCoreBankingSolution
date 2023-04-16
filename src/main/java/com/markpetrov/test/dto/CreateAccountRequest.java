@@ -9,6 +9,7 @@ public class CreateAccountRequest {
     private String country;
     private List<Currency> currencies;
 
+
     // Getters and setters
     public Long getCustomerId() {
         return customerId;

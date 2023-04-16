@@ -33,6 +33,18 @@ public class Transaction implements Serializable {
         this.accountId = accountId;
     }
 
+    public Long getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(Long transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
@@ -45,12 +57,24 @@ public class Transaction implements Serializable {
         this.currency = currency;
     }
 
+    public TransactionDirection getDirection() {
+        return direction;
+    }
+
     public void setDirection(TransactionDirection direction) {
         this.direction = direction;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public BigDecimal getBalanceAfterTransaction() {
+        return balanceAfterTransaction;
     }
 
     public void setBalanceAfterTransaction(BigDecimal balanceAfterTransaction) {

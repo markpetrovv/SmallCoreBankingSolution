@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 
 public class Balance implements Serializable {
     private Long accountId;
+    private Long balanceId;
     private BigDecimal availableAmount;
     private Currency currency;
 
@@ -38,5 +39,12 @@ public class Balance implements Serializable {
 
     public void setCurrency(Currency currency) {
         this.currency = currency;
+    }
+    public Long getBalanceId() {
+        return balanceId;
+    }
+
+    public void setBalanceId(Long balanceId) {
+        this.balanceId = balanceId;
     }
 }
