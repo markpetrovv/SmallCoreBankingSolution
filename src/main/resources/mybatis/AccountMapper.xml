@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.markpetrov.test.mapper.AccountMapper">
+    <resultMap id="AccountResultMap" type="com.markpetrov.test.model.Account">
+        <id property="accountId" column="account_id"/>
+        <result property="customerId" column="customer_id"/>
+        <result property="country" column="country" />
+    </resultMap>
+
+    <insert id="insert" parameterType="com.markpetrov.test.model.Account" useGeneratedKeys="true" keyProperty="accountId">
+        INSERT INTO accounts (customer_id, country)
+        VALUES (#{customerId}, #{country});
+    </insert>
+
+    <select id="findById" resultMap="AccountResultMap" parameterType="long">
+        SELECT account_id, customer_id, country
+        FROM accounts
+        WHERE account_id = #{accountId};
+    </select>
+</mapper>

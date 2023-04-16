@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.markpetrov.test.mapper.BalanceMapper">
+    <resultMap id="BalanceResultMap" type="com.markpetrov.test.model.Balance">
+        <id property="balanceId" column="balance_id"/>
+        <result property="accountId" column="account_id"/>
+        <result property="availableAmount" column="available_amount"/>
+        <result property="currency" column="currency"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.markpetrov.test.model.Balance" useGeneratedKeys="true" keyProperty="balanceId" keyColumn="balance_id">
+        INSERT INTO balances (account_id, available_amount, currency)
+        VALUES (#{accountId}, #{availableAmount}, #{currency});
+    </insert>
+
+    <select id="findByAccountId" resultMap="BalanceResultMap" parameterType="long">
+        SELECT balance_id, account_id, available_amount, currency
+        FROM balances
+        WHERE account_id = #{accountId};
+    </select>
+
+    <update id="update" parameterType="com.markpetrov.test.model.Balance">
+        UPDATE balances
+        SET available_amount = #{availableAmount}
+        WHERE balance_id = #{balanceId};
+    </update>
+</mapper>

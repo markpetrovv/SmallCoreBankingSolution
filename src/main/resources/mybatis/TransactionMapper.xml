@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.markpetrov.test.mapper.TransactionMapper">
+    <resultMap id="TransactionResultMap" type="com.markpetrov.test.model.Transaction">
+        <id property="transactionId" column="transaction_id"/>
+        <result property="accountId" column="account_id"/>
+        <result property="amount" column="amount"/>
+        <result property="currency" column="currency"/>
+        <result property="direction" column="direction"/>
+        <result property="description" column="description"/>
+        <result property="balanceAfterTransaction" column="balance_after_transaction"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.markpetrov.test.model.Transaction" useGeneratedKeys="true" keyProperty="transactionId">
+        INSERT INTO transactions (account_id, amount, currency, direction, description, balance_after_transaction)
+        VALUES (#{accountId}, #{amount}, #{currency}, #{direction}, #{description}, #{balanceAfterTransaction});
+    </insert>
+
+    <select id="findByAccountId" resultMap="TransactionResultMap" parameterType="long">
+        SELECT transaction_id, account_id, amount, currency, direction, description, balance_after_transaction
+        FROM transactions
+        WHERE account_id = #{accountId};
+    </select>
+</mapper>
