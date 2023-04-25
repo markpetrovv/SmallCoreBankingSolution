@@ -14,16 +14,17 @@ Docker Desktop and Git must be installed and run.
   brew install git
   ````
   
-**Step 1:** Create "test" folder on your local device and access it through command prompt terminal
+**Step 1:** Clone the repo to your local device
 ````
-cd yourPathToTheTestFolder/test
+git clone https://github.com/markpetrovv/SmallCoreBankingSolution.git
 ````
 
-**Step 2:** After accessing "test" folder, clone the repo using following line
+**Step 2:** Acces the folder where you cloned the project with Terminal/Command Prompt Terminal
 ````
-git clone "https://github.com/markpetrovv/SmallCoreBankingSolution.git"
+cd pathToTheFolderWhereTheClonedProjectIsLocated
 ````
-**Step 3:** In the "test" folder, run the following command in the command prompt terminal to build the image and run the docker file
+
+**Step 3:** Use the following command to create a local image and start the build
 ````
 docker build -t localimage .
 ````
@@ -44,7 +45,8 @@ docker-compose up -d
 ## Application Test Scenarios
 **Test 1:** Create an Account (allowed currencies are USD, EUR, GBP and SEK)
 ````
-curl -X POST -H "Content-Type: application/json" -d "{"customerId": 5, "country": "EST", "currencies": ["EUR", "USD"]}" http://localhost:8080/accounts
+curl -X POST -H "Content-Type: application/json" -d "{\"customerId\": 1, \"country\": \"EST\", 
+\"currencies\": [\"EUR\", \"USD\"]}" http://localhost:8080/accounts
 ````
 **Test 2:** Get an Information About Account
 
@@ -56,11 +58,15 @@ curl -X GET http://localhost:8080/accounts/(accountId)
 
 IN transaction:
 ````
-curl -X POST -H "Content-Type: application/json" -d "{"accountId": (accountId), "amount": 500, "currency": "EUR", "direction": "IN", "description": "Deposit"}" http://localhost:8080/transactions
+curl -X POST -H "Content-Type: application/json" -d "{\"accountId\": (accountId), \"amount\": 
+10000, \"currency\": \"EUR\", \"direction\": \"IN\", \"description\": \"Deposit\"}" 
+http://localhost:8080/transactions
 ````
 OUT transaction:
 ````
-curl -X POST -H "Content-Type: application/json" -d "{"accountId": (accountId), "amount": 250, "currency": "EUR", "direction": "OUT", "description": "Withdrawal"}" http://localhost:8080/transactions
+curl -X POST -H "Content-Type: application/json" -d "{\"accountId\": (accountId), \"amount\": 
+5000, \"currency\": \"EUR\", \"direction\": \"OUT\", \"description\": \"Withdrawal\"}" 
+http://localhost:8080/transactions
 ````
 **Test 4:** Get Information About Transactions
 ````
@@ -84,3 +90,16 @@ curl -X GET http://localhost:8080/transactions/(accountId)
   - Java version: 17
   - The project uses RabbitMQ for messaging, which is a widely used, open-source message broker.
   - The project uses JUnit and Mockito for unit testing and mocking, which are popular and widely used testing libraries in the Java
+
+## Horizontal Scaling
+Before implementing the horizontal scaling you have to make sure that the application is stateless, so 
+the instance will not rely on local data dependencies, while processing the request. Also, message 
+queuing system has to be used in order to manage frequently accessed data and manage other 
+concurrent background tasks more effectively.
+
+## Transactions Per Second (TPS)
+For this purpose I used Gatling benchmark tool. I tested my application using different amount of users: 
+10, 100, 300. Here is the screenshot of 300 concurrent users using the application. We can see that the 
+average TPS for my application is 260 transaction per second.
+
+![alt text](https://github.com/markpetrovv/SmallCoreBankingSolution/blob/main/screenshots/TPS.png?raw=true)
