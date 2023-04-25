@@ -1,6 +1,17 @@
 # :moneybag:Small Core Banking Solution
 This project is a small core banking solution designed to manage and process fundamental banking operations, such as account creation and transactions.
 
+## Technologies
+  - Java 17
+  - Spring Boot
+  - Gradle
+  - PostgreSQL
+  - MyBatis
+  - Docker
+  - RabbitMQ
+  - Junit
+  - Mockito
+
 ## Deployment Instructions and Requirements for the Application
 Docker Desktop and Git must be installed and run.
   - [Docker for Windows, Apple Chip and Intel Chip](https://www.docker.com/products/docker-desktop/)
